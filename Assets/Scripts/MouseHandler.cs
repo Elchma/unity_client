@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraHandler : MonoBehaviour
+public class MouseHandler : MonoBehaviour
 {
     [SerializeField] private Camera cam;
-    [SerializeField] Transform modelTransform;
-    [SerializeField] float distance = 10;
-    [SerializeField] float rotationSpeed = 90;
-    [SerializeField] float zoomPower = 4;
+    [SerializeField] private Transform modelTransform;
+    [SerializeField] private float distance = 10;
+    [SerializeField] private float rotationSpeed = 90;
+    [SerializeField] private float zoomPower = 4;
 
     private Vector3 mousePosition;
 
@@ -19,14 +19,39 @@ public class CameraHandler : MonoBehaviour
         cam.transform.Translate(new Vector3(0, 0, -distance));
     }
 
-    public void StartRotation()
+    private void Update()
+    {
+        // Rotation
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartCameraRotation();
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            RotateCamera();
+        }
+        
+        // Collision
+        if (Input.GetMouseButtonDown(1))
+        {
+            SetCollisionPoint();
+        }
+
+        // Zoom
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            Zoom(Input.mouseScrollDelta.y);
+        }
+    }
+
+    public void StartCameraRotation()
     {
         // When we start moving our camera
         // We get the mouse position on the screen
         mousePosition = cam.ScreenToViewportPoint(Input.mousePosition);
     }
 
-    public void Rotate()
+    public void RotateCamera()
     {
         // As long as the mouse button is pressed
 
@@ -42,6 +67,17 @@ public class CameraHandler : MonoBehaviour
         
         // Then we move the camera backward from the model
         cam.transform.Translate(new Vector3(0, 0, -distance));
+    }
+
+    public void SetCollisionPoint()
+    {
+        RaycastHit hit;
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        
+        if (Physics.Raycast(ray, out hit)) {
+            Vector3 hitPosition = hit.point;
+            Debug.Log(hitPosition);
+        }
     }
 
     public void Zoom(float delta)
