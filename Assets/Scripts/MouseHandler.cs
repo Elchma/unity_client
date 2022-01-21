@@ -10,6 +10,7 @@ public class MouseHandler : MonoBehaviour
     [SerializeField] private float distance = 10;
     [SerializeField] private float rotationSpeed = 90;
     [SerializeField] private float zoomPower = 4;
+    [SerializeField] private bool popupActive = false;
 
     private Vector3 mousePosition;
 
@@ -22,6 +23,9 @@ public class MouseHandler : MonoBehaviour
 
     private void Update()
     {
+        if (SendCoordinatePopup.Instance.IsActive())
+            return;
+
         // Rotation
         if (Input.GetMouseButtonDown(0))
         {

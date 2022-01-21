@@ -7,7 +7,8 @@ public class RequestManager : MonoBehaviour
 {
     public void SendCollisionPoint(Vector3 point)
     {
-        StartCoroutine(UploadPoint(point));
+        SendCoordinatePopup.Instance.ShowConfirmationPopup(point.ToString());
+        // StartCoroutine(UploadPoint(point));
     }
 
     IEnumerator UploadPoint(Vector3 point)
@@ -28,5 +29,7 @@ public class RequestManager : MonoBehaviour
         {
             Debug.Log(www.downloadHandler.text);
         }
+
+        www.Dispose();
     }
 }
