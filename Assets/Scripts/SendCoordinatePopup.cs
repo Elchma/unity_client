@@ -39,6 +39,6 @@ public class SendCoordinatePopup : MonoBehaviour
 
     public bool IsActive()
     {
-        return gameObject.active;
+        return gameObject.activeSelf;
     }
 }
