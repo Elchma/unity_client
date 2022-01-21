@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MouseHandler : MonoBehaviour
 {
+    [SerializeField] private RequestManager requestManager;
     [SerializeField] private Camera cam;
     [SerializeField] private Transform modelTransform;
     [SerializeField] private float distance = 10;
@@ -76,7 +77,7 @@ public class MouseHandler : MonoBehaviour
         
         if (Physics.Raycast(ray, out hit)) {
             Vector3 hitPosition = hit.point;
-            Debug.Log(hitPosition);
+            requestManager.SendCollisionPoint(hitPosition);
         }
     }
 
