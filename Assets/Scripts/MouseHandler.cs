@@ -10,7 +10,6 @@ public class MouseHandler : MonoBehaviour
     [SerializeField] private float distance = 10;
     [SerializeField] private float rotationSpeed = 90;
     [SerializeField] private float zoomPower = 4;
-    [SerializeField] private bool popupActive = false;
 
     private Vector3 mousePosition;
 
@@ -81,7 +80,7 @@ public class MouseHandler : MonoBehaviour
         
         if (Physics.Raycast(ray, out hit)) {
             Vector3 hitPosition = hit.point;
-            requestManager.SendCollisionPoint(hitPosition);
+            requestManager.NewCollisionPoint(hitPosition);
         }
     }
 
